@@ -86,7 +86,7 @@
 			var success = function(response) {
 				//控制底部的加载更多，加载完毕显示。
 				//参数为true代表没有更多数据了。返回数据如果小于
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh(response.length < 6);
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(response.length < 10);
 				//获取Ui元素
 				var table = document.body.querySelector('.mui-table-view');
 				//ajax拉取得html片段
