@@ -1,0 +1,113 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/myStyle.css" />
+		<link rel="stylesheet" href="../css/iconfont.css">
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left my-css-color"></a>
+			<h1 class="mui-title">详情</h1>
+			<a class="iconfont icon-fenxiang1 iconfont-juzhong mui-pull-right my-css-color"></a>
+		</header>
+
+		<div class="mui-content">
+
+		</div>
+
+		<footer>
+			<div class="footer-left">
+				<i id='msg-image' class="mui-icon mui-icon-camera" style="font-size: 28px;"></i>
+			</div>
+			<div class="footer-center">
+				<textarea id='msg-text' type="text" class='input-text'></textarea>
+				<button id='msg-sound' type="button" class='input-sound' style="display: none;">按住说话</button>
+			</div>
+			<label for="" class="footer-right">
+				<i id='msg-type' class="mui-icon mui-icon-mic"></i>
+			</label>
+		</footer>
+
+	</body>
+	<style>
+
+		footer {
+			position: fixed;
+			width: 100%;
+			height: 50px;
+			min-height: 50px;
+			border-top: 1px solid #BBB;
+			left: 0px;
+			bottom: 0px;
+			overflow: hidden;
+			padding: 0px 50px;
+			background-color: #FAFAFA;
+		}
+		
+		.footer-left {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			left: 0px;
+			bottom: 0px;
+			text-align: center;
+			vertical-align: middle;
+			line-height: 100%;
+			padding: 12px 4px;
+		}
+		
+		.footer-center {
+			height: 100%;
+			padding: 5px 0px;
+		}
+		
+		.footer-center .input-text {
+			background: #FFF none repeat scroll 0% 0%;
+			border: 1px solid #DDD;
+			padding: 10px !important;
+			font-size: 16px !important;
+			line-height: 18px !important;
+			font-family: verdana !important;
+			overflow: hidden;
+		}
+		
+		.footer-center .input-sound {
+			background-color: #EEE;
+		}
+		
+		.footer-right {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			right: 0px;
+			bottom: 0px;
+			text-align: center;
+			vertical-align: middle;
+			line-height: 100%;
+			padding: 12px 5px;
+			display: inline-block;
+		}
+		
+		.footer-center [class*="input"] {
+			width: 100%;
+			height: 100%;
+			border-radius: 5px;
+		}
+		
+		textarea {
+			height: auto;
+			resize: none;
+		}
+	</style>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" href="css/myStyle.css">
+		<link rel="stylesheet" href="css/iconfont.css">
+	</head>
+
+	<body>
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul class="mui-table-view" id="aaab">
+					<!--这里插入列表内容-->
+				</ul>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script>
+			var scount = 0; //开始的条数
+			var tcount = 5; //每次加载的条数
+			/*
+			 * 初始化mui 上拉，下拉两个事件
+			 */
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						callback: pulldownRefresh
+					},
+					up: {
+						contentrefresh: '正在加载...',
+						contentnomore: '没有更多文章了',
+						callback: pullupRefresh
+					}
+				}
+			});
+			/*
+			 *下拉刷新，上拉加载 初始化数据
+			 */
+			if (mui.os.plus) {
+				mui.plusReady(function() {
+					setTimeout(function() {
+						mui('#pullrefresh').pullRefresh().pullupLoading();
+					}, 1000);
+				});
+			} else {
+				mui.ready(function() {
+					mui('#pullrefresh').pullRefresh().pullupLoading();
+				});
+			}
+			/*
+			 *下拉刷新具体业务实现
+			 */
+			function pulldownRefresh() {
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().endPulldownToRefresh(); //refresh completed	
+				}, 1000);
+			}
+			/*
+			 * 上拉加载具体业务实现
+			 */
+			function pullupRefresh() {
+				//网络判断
+				if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+					//设置底部加载更多-停止
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+					mui.toast("当前网络不给力，请稍后再试");
+				} else {
+					ajax(); //执行请求
+				}
+			}
+			/*
+			 * 成功响应的回调函数
+			 */
+			var count = 0;
+			var success = function(response) {
+				//控制底部的加载更多，加载完毕显示。
+				//参数为true代表没有更多数据了。返回数据如果小于
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(response.length < 5);
+				//获取Ui元素
+				var table = document.body.querySelector('.mui-table-view');
+				//ajax拉取得html片段
+				var html = response;
+				console.log('当前返回： ' + response.length);
+				//插入代码片段
+				table.insertAdjacentHTML('beforeend', html);
+			};
+			//异常处理函数
+			var error = function(xhr, type, errorThrown) {
+				//异常处理；
+				console.log('异常信息： ' + type);
+				mui.toast("抱歉，链接超时，请重试！");
+				//设置底部加载更多-停止
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+			};
+			/*
+			 *ajax网络请求函数
+			 */
+			var ajax = function() {
+				//功能测试url
+				var url = 'http://loio.wicp.net/List/ListPanel';
+				//发送数据
+				var data = {
+					skipCount: scount, //开始条数，累加每次加载条数
+					takeCount: tcount //每次加载条数
+				};
+				//Get方式请求html
+				mui.ajax(url, {
+					data: data,
+					type: 'get',
+					timeout: 10000,
+					success: success,
+					dataType: 'html',
+					error: error
+				});
+				scount += tcount;
+				console.log('当前条数： ' + scount);
+			}
+		</script>
+	</body>
+
+</html>
