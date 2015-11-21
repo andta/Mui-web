@@ -67,9 +67,9 @@
 		<script src="js/mui.min.js"></script>
 		<script>
 			var scount = 0; //开始的条数
-			var tcount = 10; //每次加载的条数
-			var outtime=15000;//超时
-			var url = 'http://192.168.1.83/List/ListPanel';//loio.wicp.net
+			var tcount = 5; //每次加载的条数
+			var outtime = 10000;//超时
+			var url = 'http://192.168.1.83/Mobile/ListPanel';//loio.wicp.net
 			/*
 			 * 初始化mui 上拉，下拉两个事件
 			 */
@@ -127,20 +127,27 @@
 			var count = 0;
 			var success = function(response) {
 				//控制底部的加载更多，加载完毕显示。
-				//参数为true代表没有更多数据了。返回数据如果小于
-				mui('#pullrefresh').pullRefresh().endPullupToRefresh(response.length < 5);
+				//参数为true代表没有更多数据了。返回数据如果小于			
+//					for (var i = cells.length, len = i + 20; i < len; i++) {
+//						var li = document.createElement('li');
+//						li.className = 'mui-table-view-cell';
+//						li.innerHTML = '<a class="mui-navigate-right">Item ' + (i + 1) + '</a>';
+//						table.appendChild(li);
+//					}
+				
+				mui('#pullrefresh').pullRefresh().endPullupToRefresh(response.length < 1);
 				//获取Ui元素
 				var table = document.body.querySelector('.mui-table-view');
 				//ajax拉取得html片段
 				var html = response;
-				console.log('当前返回： ' + response.length);
+				console.log('调试：ajax返回数据字节 = ' + response.length);
 				//插入代码片段
 				table.insertAdjacentHTML('beforeend', html);
 			};
 			//异常处理函数
 			var error = function(xhr, type, errorThrown) {
 				//异常处理；
-				console.log('异常信息： ' + type);
+				console.log('调试：异常信息 = ' + type);
 				mui.toast("抱歉，链接超时，请重试！");
 				//设置底部加载更多-停止
 				mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
@@ -149,10 +156,12 @@
 			 *ajax网络请求函数
 			 */
 			var ajax = function() {
+				var cells = document.body.querySelectorAll('.mui-table-view-cell');
+				console.log('调试：当前列表条数 = ' + cells.length);
 				//功能测试url
 				//发送数据
 				var data = {
-					skipCount: scount, //开始条数，累加每次加载条数
+					skipCount: cells.length, //开始条数，累加每次加载条数
 					takeCount: tcount //每次加载条数
 				};
 				//Get方式请求html
@@ -165,7 +174,6 @@
 					error: error
 				});
 				scount += tcount;
-				console.log('当前条数： ' + scount);
 			}
 			/*
 			 * 加载模板
