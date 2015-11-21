@@ -25,38 +25,10 @@
 		</div>
 		<!------------------------------------------->
 		<script src="js/mui.min.js"></script>
-		<script>
-			(function($) {
-				var respnoseEl = document.getElementById("response");
-				//成功响应的回调函数
-				var success = function(response) {
-					respnoseEl.innerHTML = response;
-				};
-				//ajax网络请求
-				var ajax = function() {
-					//功能测试url
-					var url = 'http://192.168.1.83/List/ListPanel';
-					respnoseEl.innerHTML = '正在请求中...';
-							//发送数据
-					var data = {
-						skipCount: 1,
-						takeCount: 4				
-					};
-					//Get方式请求html
-					$.get(url,data, success, 'html');
-				};
-				//发送请求按钮的点击事件
-				document.getElementById("info").addEventListener('tap', function() {
-					//网络判断
-					if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-						respnoseEl.innerHTML = '当前网络不给力，请稍后再试';
-					} else {
-						ajax();
-					}
-				});
-			})(mui);
-					
-			//启用双击监听
+		<script>				
+			/*
+			 * 初始化Mui,启用双击监听,预加载sub子页
+			 */
 			mui.init({
 				gestureConfig: {
 					doubletap: true
@@ -76,7 +48,30 @@
 					contentWebview = plus.webview.currentWebview().children()[0];
 				}
 				contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
-			});		
+			});	
+			/*
+			 * 处理右上角关于图标的点击事件；
+			 */
+			var subWebview = null,
+				template = null;
+			document.getElementById('info').addEventListener('tap', function() {
+					console.log('调试：点击了关于按钮');
+				if (subWebview == null) {
+					//获取共用父窗体
+					console.log('获取共用父窗体： ' + subWebview);
+					template = plus.webview.getWebviewById("default-main");
+				}
+				if (template) {
+					subWebview = template.children()[0];
+					subWebview.loadURL('examples/info.html');
+					//修改共用父模板的标题
+					mui.fire(template, 'updateHeader', {
+						title: '关于',
+//						showMenu: false
+					});
+					template.show('slide-in-right', 150);
+				}
+			});
 		</script>
 	</body>
 </html>
