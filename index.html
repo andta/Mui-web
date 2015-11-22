@@ -18,18 +18,19 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon mui-icon-bars mui-pull-left my-css-color"></a>
-			<a id="info" class="mui-icon mui-icon-info-filled mui-pull-right my-css-color"></a>
+			<a id="about" class="mui-icon mui-icon-info-filled mui-pull-right my-css-color"></a>
 			<h1 class="mui-title">美文</h1>
 		</header>
-		<div class="mui-content">			
+		<div class="mui-content">
+			<!--子页面区域-->
 		</div>
 		<!------------------------------------------->
 		<script src="js/mui.min.js"></script>
-		<script>				
+		<script>
 			/*
 			 * 初始化Mui,启用双击监听,预加载sub子页
 			 */
-			mui.init({										
+			mui.init({
 				gestureConfig: {
 					doubletap: true
 				},
@@ -48,31 +49,44 @@
 					contentWebview = plus.webview.currentWebview().children()[0];
 				}
 				contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
-			});	
+			});
 			/*
 			 * 处理右上角关于图标的点击事件；
 			 */
 			var subWebview = null,
 				template = null;
-			document.getElementById('info').addEventListener('tap', function() {
-					console.log('调试：点击了关于按钮！');
-					console.log('调试：状态栏高度 = ' + plus.navigator.getStatusbarHeight());
+			document.getElementById('about').addEventListener('tap', function() {
+				console.log('调试：点击了关于按钮！');
+				console.log('调试：状态栏高度 = ' + plus.navigator.getStatusbarHeight());
+				console.log('调试：获取共用父窗体 = ' + subWebview);
 				if (subWebview == null) {
 					//获取共用父窗体
-					console.log('调试：获取共用父窗体 = ' + subWebview);
 					template = plus.webview.getWebviewById("default-main");
 				}
 				if (template) {
 					subWebview = template.children()[0];
-					subWebview.loadURL('examples/info.html');
+					subWebview.loadURL('examples/about.html');
 					//修改共用父模板的标题
 					mui.fire(template, 'updateHeader', {
 						title: '关于',
-//						showMenu: false
+						//						showMenu: false
 					});
-					template.show('slide-in-right', 150);
+					template.show('slide-in-right', 150); //把新webview窗体显示出来，显示动画效果为速度150毫秒的右侧移入动画
+					
+//					contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+					/*
+					 * 现载方法
+					 */
+					//					var webviewShow;
+					//					var nwaiting = plus.nativeUI.showWaiting(); //显示原生等待框
+					//					webviewShow = plus.webview.create("http://192.168.1.83/Mobile/AboutInfo"); //后台创建webview并打开show.html
+					//					webviewShow.addEventListener("loaded", function() { //注册新webview的载入完成事件
+					//						nwaiting.close(); //新webview的载入完毕后关闭等待框
+					//						webviewShow.show("slide-in-right", 150); //把新webview窗体显示出来，显示动画效果为速度150毫秒的右侧移入动画
+					//					}, false);
 				}
 			});
 		</script>
 	</body>
+
 </html>
