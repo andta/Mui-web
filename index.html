@@ -58,7 +58,6 @@
 			document.getElementById('about').addEventListener('tap', function() {
 				console.log('调试：点击了关于按钮！');
 				console.log('调试：状态栏高度 = ' + plus.navigator.getStatusbarHeight());
-				console.log('调试：获取共用父窗体 = ' + subWebview);
 				if (subWebview == null) {
 					//获取共用父窗体
 					template = plus.webview.getWebviewById("default-main");
@@ -68,24 +67,24 @@
 					subWebview.loadURL('examples/about.html');
 					//修改共用父模板的标题
 					mui.fire(template, 'updateHeader', {
-						title: '关于',
-						//						showMenu: false
+						title: '关于'
 					});
+					console.log('调试：subWebview。' + subWebview.id);
+					console.log('调试：template。' + template.id);
 					template.show('slide-in-right', 150); //把新webview窗体显示出来，显示动画效果为速度150毫秒的右侧移入动画
-					
-//					contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
-					/*
-					 * 现载方法
-					 */
-					//					var webviewShow;
-					//					var nwaiting = plus.nativeUI.showWaiting(); //显示原生等待框
-					//					webviewShow = plus.webview.create("http://192.168.1.83/Mobile/AboutInfo"); //后台创建webview并打开show.html
-					//					webviewShow.addEventListener("loaded", function() { //注册新webview的载入完成事件
-					//						nwaiting.close(); //新webview的载入完毕后关闭等待框
-					//						webviewShow.show("slide-in-right", 150); //把新webview窗体显示出来，显示动画效果为速度150毫秒的右侧移入动画
-					//					}, false);
 				}
 			});
+			/*
+			 * 程序退出事件
+			 */
+			mui.back = function() {
+				plus.nativeUI.confirm("确认退出？", function(e) {
+					if (e.index == 0) {
+						plus.runtime.quit();
+						console.log('调试：点击了关于按钮！');
+					}
+				});
+			};
 		</script>
 	</body>
 
