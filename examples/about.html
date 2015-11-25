@@ -33,6 +33,7 @@
 	<body>
 		<div class="mui-content">
 			<!--内容区域-->
+			<button type="button" class="mui-btn mui-btn-blue" onclick="bbaa()">按钮</button>
 		</div>
 	</body>
 	<!------------------------------------------->
@@ -87,17 +88,35 @@
 		var success = function(response) {
 			//获取Div元素
 			var table = document.body.querySelector('.mui-content');
-			//ajax拉取得html片段
-			var html = response;
+			//ajax拉取得html片段 response
 			console.log('调试：ajax返回数据字节 = ' + response.length);
 			//插入代码片段 在 element 元素的最后一个子元素后面。
-			table.insertAdjacentHTML('beforeend', html);
+			table.insertAdjacentHTML('beforeend', response);
 		};
 		//异常处理函数
 		var throwGeterror = function(xhr, type, errorThrown) {
 			//异常处理；
 			console.log('调试：异常信息 = ' + type);
 			mui.toast("抱歉，链接超时，请重试！");
+		};
+
+		function bbaa() {
+			//预加载无网络页面
+			var subWebview = mui.preload({
+				url: 'network_none.html',
+				id: "network_none",
+				styles: {
+					top: '45px',
+					bottom: '0px',
+				},
+				extras: {
+					mType: 'sub'
+				}
+			});
+			//获取共用父窗体
+			var template = plus.webview.getWebviewById("default-main");
+			console.log('调试：当前共有的子窗体个数 = ' + template.children().length);
+			template.append(subWebview);
 		};
 	</script>
 

@@ -116,11 +116,10 @@
 			mui('#pullrefresh').pullRefresh().endPullupToRefresh(response.length < 1);
 			//获取Ui元素
 			var table = document.body.querySelector('.mui-table-view');
-			//ajax拉取得html片段
-			var html = response;
+			//ajax拉取得html片段response
 			console.log('调试：ajax返回数据字节 = ' + response.length);
 			//插入代码片段
-			table.insertAdjacentHTML('beforeend', html);
+			table.insertAdjacentHTML('beforeend', response);
 		};
 		//异常处理函数
 		var throwGeterror = function(xhr, type, errorThrown) {
