@@ -28,20 +28,35 @@
 		<div class="mui-content">
 			<div style="margin-top: 50%; font-size: 14px; color: #888; text-align: center;">
 				<div class="iconfont icon-wuwangluoicon01" style="font-size: 50px ; margin-bottom: 20px; "></div>
-				<span>网络不给力&nbsp;&nbsp;轻点刷新</span>
+				<span>网络不给力，检查网络设置</span>
+				<br>
+				<span>轻点刷新 </span>
+
 			</div>
-			
+
 		</div>
 	</body>
 
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/app.js"></script>
 	<script>
-		//轻点刷新事件
+		/*
+		 * 轻点刷新事件
+		 */
 		mui('body').on('tap', 'div', function() {
-			console.log('调试：关闭无网络界面 ！ ');
-			var subWebview = plus.webview.getWebviewById("network_none");
-			subWebview.close();
+			andta.networkif()
 		});
+		/*
+		 * 点击返回关闭无网络界面
+		 */
+		mui.init({
+			beforeback: function() {
+				console.log('调试：点击back，关闭无网络界面 ！');
+				andta.backwebview();
+			}
+		});
+
+		
 	</script>
 
 </html>

@@ -27,7 +27,7 @@
 			wzid = e.detail.id;
 			console.log('调试：文章页面获取的id = ' + wzid);
 		});
-		var outtime = 10000; //超时
+		var outtime = 20000; //超时
 		var url = 'http://192.168.1.83/Mobile/Details'; //loio.wicp.net
 		/*
 		 * 初始化Mui
@@ -87,7 +87,7 @@
 		var throwGeterror = function(xhr, type, errorThrown) {
 			//异常处理；
 			console.log('调试：异常信息 = ' + type);
-			mui.toast("抱歉，链接超时，请重试！");
+			mui.toast("抱歉，获取文章内容异常！");
 		};
 	</script>
 

@@ -39,7 +39,7 @@
 	<!------------------------------------------->
 	<script src="../js/mui.min.js"></script>
 	<script type="text/javascript" charset="utf-8">
-		var outtime = 10000; //超时
+		var outtime = 20000; //超时
 		var url = 'http://192.168.1.83/Mobile/AboutInfo'; //loio.wicp.net
 		/*
 		 * 初始化Mui
@@ -97,26 +97,12 @@
 		var throwGeterror = function(xhr, type, errorThrown) {
 			//异常处理；
 			console.log('调试：异常信息 = ' + type);
-			mui.toast("抱歉，链接超时，请重试！");
+			mui.toast("抱歉，打开关于页面异常！");
 		};
 
 		function bbaa() {
-			//预加载无网络页面
-			var subWebview = mui.preload({
-				url: 'network_none.html',
-				id: "network_none",
-				styles: {
-					top: '45px',
-					bottom: '0px',
-				},
-				extras: {
-					mType: 'sub'
-				}
-			});
-			//获取共用父窗体
-			var template = plus.webview.getWebviewById("default-main");
-			console.log('调试：当前共有的子窗体个数 = ' + template.children().length);
-			template.append(subWebview);
+					var subWebview = plus.webview.getWebviewById("network_none");
+
 		};
 	</script>
 
