@@ -27,6 +27,7 @@
 	</body>
 	<!------------------------------------------->
 	<script src="js/mui.min.js"></script>
+	<script src="js/app.js"></script>
 	<script>
 		var tcount = 5; //每次加载的条数
 		var outtime = 20000; //超时
@@ -192,10 +193,10 @@
 					}
 				});
 				//绑定加载完成事件
-				subWebview.addEventListener('loaded', function() {
-					setTimeout(function() {
-						subWebview.show();
-					}, 1000);
+				subWebview.addEventListener('loaded', function() {						
+//					setTimeout(function() {
+//						subWebview.show();
+//					}, 1000);
 				});
 				subWebview.hide();
 				headerWebview.append(subWebview);

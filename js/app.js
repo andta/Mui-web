@@ -1,3 +1,4 @@
+
 var andta = { //类似静态方法
 	backwebview: function() {
 		/*关闭network_none页面*/
@@ -33,7 +34,7 @@ var andta = { //类似静态方法
 	},
 	createwebnone: function() {
 		/*预加载无网络页面*/
-		var subWebview = mui.preload({
+		var subWeb = mui.preload({
 			url: 'network_none.html',
 			id: "network_none",
 			styles: {
@@ -45,9 +46,12 @@ var andta = { //类似静态方法
 			}
 		});
 		//获取共用父窗体
-		var template = plus.webview.getWebviewById("default-main");
-		console.log('调试：当前共有的子窗体个数 = ' + template.children().length);
-		template.append(subWebview);
+		var tempweb = plus.webview.getWebviewById("default-main");
+		console.log('调试：打开无网络界面，子窗体个数 = ' + tempweb.children().length);
+		tempweb.append(subWeb);
+	},
+	newweb: function()  {
+
 	}
 }
 

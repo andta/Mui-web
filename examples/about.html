@@ -17,13 +17,6 @@
 				text-indent: 22px;
 				padding: 5px 8px;
 			}
-			
-			html,
-			body,
-			.mui-content {
-				background-color: #fff;
-			}
-			
 			h4 {
 				margin-left: 5px;
 			}
@@ -33,11 +26,11 @@
 	<body>
 		<div class="mui-content">
 			<!--内容区域-->
-			<button type="button" class="mui-btn mui-btn-blue" onclick="bbaa()">按钮</button>
 		</div>
 	</body>
 	<!------------------------------------------->
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/app.js"></script>
 	<script type="text/javascript" charset="utf-8">
 		var outtime = 20000; //超时
 		var url = 'http://192.168.1.83/Mobile/AboutInfo'; //loio.wicp.net
@@ -50,7 +43,11 @@
 		mui.plusReady(function() {
 			var cells = document.body.querySelectorAll('.mui-content');
 			console.log('调试：关于页面是否包含内容 = ' + cells.length);
-			ajax(); //执行请求	
+			if (plus.networkinfo.getCurrentType() == 1) {
+				ajax(); //执行请求	
+			} else {
+				andta.createwebnone()							
+			}
 		});
 		//处理点击事件，需要打开原生浏览器
 		mui('body').on('tap', 'a', function(e) {
@@ -98,11 +95,6 @@
 			//异常处理；
 			console.log('调试：异常信息 = ' + type);
 			mui.toast("抱歉，打开关于页面异常！");
-		};
-
-		function bbaa() {
-					var subWebview = plus.webview.getWebviewById("network_none");
-
 		};
 	</script>
 

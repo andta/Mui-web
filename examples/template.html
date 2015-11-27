@@ -210,10 +210,10 @@
 		}
 		var titleElem = document.getElementById("title")
 		var menuElem = document.getElementById("menu")
-		//监听自定义事件
+			//监听自定义事件
 		window.addEventListener("updateHeader", function(e) {
 			var title = e.detail.title;
-			console.log('调试：updateHeader事件触发 = '+ e.detail.id);
+			console.log('调试：updateHeader事件触发 = ' + e.detail.id);
 			var showMenu = e.detail.showMenu;
 			var href = e.detail.target;
 			var aniShow = e.detail.aniShow;
@@ -253,15 +253,6 @@
 			}
 			contentWebview.evalJS('mui.scrollTo(0, 100)');
 		});
-		mui.menu = function() {
-			console.log(menuElem.style.display);
-			if (menuElem.style.display !== "none") {
-				if (contentWebview == null) {
-					contentWebview = plus.webview.currentWebview().children()[0];
-				}
-				contentWebview.evalJS('mui("#topPopover").popover("toggle")');
-			}
-		}
 	</script>
 
 </html>
