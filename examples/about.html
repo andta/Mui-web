@@ -17,6 +17,7 @@
 				text-indent: 22px;
 				padding: 5px 8px;
 			}
+			
 			h4 {
 				margin-left: 5px;
 			}
@@ -44,10 +45,15 @@
 			var cells = document.body.querySelectorAll('.mui-content');
 			console.log('调试：关于页面是否包含内容 = ' + cells.length);
 			if (plus.networkinfo.getCurrentType() == 1) {
-				ajax(); //执行请求	
+				andta.createwebnone();
 			} else {
-				andta.createwebnone()							
+				ajax(); //执行请求							
 			}
+		});
+		//监听自定义事件
+		window.addEventListener("updateHeader", function(e) {
+			var title = e.detail.title;
+			ajax(); //执行请求	
 		});
 		//处理点击事件，需要打开原生浏览器
 		mui('body').on('tap', 'a', function(e) {
@@ -89,6 +95,10 @@
 			console.log('调试：ajax返回数据字节 = ' + response.length);
 			//插入代码片段 在 element 元素的最后一个子元素后面。
 			table.insertAdjacentHTML('beforeend', response);
+			//加载完成显示
+			var template = plus.webview.getWebviewById("default-main"); //获取共用父窗体				
+			var subWebview = template.children()[0];
+			subWebview.show();
 		};
 		//异常处理函数
 		var throwGeterror = function(xhr, type, errorThrown) {

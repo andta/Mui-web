@@ -1,4 +1,3 @@
-
 var andta = { //类似静态方法
 	backwebview: function() {
 		/*关闭network_none页面*/
@@ -28,8 +27,15 @@ var andta = { //类似静态方法
 		if (net == plus.networkinfo.CONNECTION_NONE) {
 			mui.toast("当前网络不给力，请稍后再试");
 		} else {
-			console.log('调试：关闭无网络界面 ！');
-			andta.backwebview(); //网络畅通关闭本界面
+			//加载完成显示
+			var subWebview = plus.webview.getWebviewById("default-main").children()[0]; //获取窗体	
+			console.log('调试：关闭无网络界面，子窗体个数 = ' + plus.webview.getWebviewById("default-main").children().length);
+			mui.fire(subWebview, 'updateHeader', {
+				title: '文章详情',
+				id: 1
+			});
+			//网络畅通关闭本界面
+			andta.backwebview();
 		}
 	},
 	createwebnone: function() {
@@ -47,10 +53,10 @@ var andta = { //类似静态方法
 		});
 		//获取共用父窗体
 		var tempweb = plus.webview.getWebviewById("default-main");
-		console.log('调试：打开无网络界面，子窗体个数 = ' + tempweb.children().length);
 		tempweb.append(subWeb);
+		console.log('调试：打开无网络界面，子窗体个数 = ' + tempweb.children().length);
 	},
-	newweb: function()  {
+	newweb: function() {
 
 	}
 }
