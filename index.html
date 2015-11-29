@@ -44,6 +44,29 @@
 					}
 				}]
 			});
+			mui.plusReady(function() {
+				/*
+				// 设置应用非全屏显示！
+				plus.navigator.setFullscreen(false); - 获取当前系统状态栏高度
+				var heightzt = plus.navigator.getStatusbarHeight();
+				// 创建加载内容窗口
+				var topoffset = '45px';
+				if (plus.navigator.isImmersedStatusbar()) { // 兼容immersed状态栏模式
+					// 获取状态栏高度并根据业务需求处理，这里重新计算了子窗口的偏移位置
+					topoffset = (Math.round(plus.navigator.getStatusbarHeight()) + 45) + 'px';
+				}
+				// 使用偏移位置创建子窗口
+				wc = plus.webview.create(null, 'doccontent', {
+					top: topoffset,
+					bottom: '0px',
+					bounce: 'vertical',
+					bounceBackground: '#FFFFFF'
+				});
+				*/
+			});
+			/*
+			 * ????
+			 */
 			var contentWebview = null;
 			document.querySelector('header').addEventListener('doubletap', function() {
 				if (contentWebview == null) {
@@ -80,7 +103,6 @@
 						console.log('调试：点击了退出按钮！');
 					}
 				}, '提示！');
-			
 			};
 		</script>
 	</body>
